@@ -1,0 +1,352 @@
+2026-Mar-11 11:22:14.490520 Starting deployment of jberroa/ethos:main to localhost.
+2026-Mar-11 11:22:15.216912 Preparing container with helper image: ghcr.io/coollabsio/coolify-helper:1.0.12
+2026-Mar-11 11:22:15.610988 [CMD]: docker stop -t 30 bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:22:15.610988 Error response from daemon: No such container: bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:22:16.080232 [CMD]: docker run -d --network coolify --name bc8sso80skckcwss8sos40o0  --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/coollabsio/coolify-helper:1.0.12
+2026-Mar-11 11:22:16.080232 5aafd7dd6aae9e60c9a4c00043eb4a6004e350506baf15cf1c3a5c3e89ba390e
+2026-Mar-11 11:22:17.525863 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'GIT_SSH_COMMAND="ssh -o ConnectTimeout=30 -p 22 -o Port=22 -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git ls-remote https://github.com/jberroa/ethos refs/heads/main'
+2026-Mar-11 11:22:17.525863 87838005a4d5093d37dbb3a327e57aa743a2f400	refs/heads/main
+2026-Mar-11 11:22:17.906705 Image not found (s0g0kcg8o4w0scgsks440swk:87838005a4d5093d37dbb3a327e57aa743a2f400). Building new image.
+2026-Mar-11 11:22:17.918492 ----------------------------------------
+2026-Mar-11 11:22:17.929085 Importing jberroa/ethos:main (commit sha 87838005a4d5093d37dbb3a327e57aa743a2f400) to /artifacts/bc8sso80skckcwss8sos40o0.
+2026-Mar-11 11:22:18.363365 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'git clone --depth=1 --recurse-submodules --shallow-submodules -b 'main' 'https://github.com/jberroa/ethos' '/artifacts/bc8sso80skckcwss8sos40o0' && cd '/artifacts/bc8sso80skckcwss8sos40o0' && if [ -f .gitmodules ]; then sed -i "s#git@\(.*\):#https://\1/#g" '/artifacts/bc8sso80skckcwss8sos40o0'/.gitmodules || true && git submodule sync && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git submodule update --init --recursive --depth=1; fi && cd '/artifacts/bc8sso80skckcwss8sos40o0' && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git lfs pull'
+2026-Mar-11 11:22:18.363365 Cloning into '/artifacts/bc8sso80skckcwss8sos40o0'...
+2026-Mar-11 11:22:19.845828 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'cd /artifacts/bc8sso80skckcwss8sos40o0 && git log -1 87838005a4d5093d37dbb3a327e57aa743a2f400 --pretty=%B'
+2026-Mar-11 11:22:19.845828 deploy additions
+2026-Mar-11 11:22:20.344493 Generating nixpacks configuration with: nixpacks plan -f json --env NIXPACKS_NODE_VERSION=22 --env COOLIFY_URL=https://ethos.2elite.co --env COOLIFY_FQDN=ethos.2elite.co --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=s0g0kcg8o4w0scgsks440swk --start-cmd "npm run start" /artifacts/bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:22:20.801022 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'nixpacks plan -f json --env NIXPACKS_NODE_VERSION=22 --env COOLIFY_URL=https://ethos.2elite.co --env COOLIFY_FQDN=ethos.2elite.co --env COOLIFY_BRANCH=main --env COOLIFY_RESOURCE_UUID=s0g0kcg8o4w0scgsks440swk --start-cmd "npm run start" /artifacts/bc8sso80skckcwss8sos40o0'
+2026-Mar-11 11:22:20.801022 {
+2026-Mar-11 11:22:20.801022 "providers": [],
+2026-Mar-11 11:22:20.801022 "buildImage": "ghcr.io/railwayapp/nixpacks:ubuntu-1745885067",
+2026-Mar-11 11:22:20.801022 "variables": {
+2026-Mar-11 11:22:20.801022 "CI": "true",
+2026-Mar-11 11:22:20.801022 "COOLIFY_BRANCH": "main",
+2026-Mar-11 11:22:20.801022 "COOLIFY_FQDN": "ethos.2elite.co",
+2026-Mar-11 11:22:20.801022 "COOLIFY_RESOURCE_UUID": "s0g0kcg8o4w0scgsks440swk",
+2026-Mar-11 11:22:20.801022 "COOLIFY_URL": "https://ethos.2elite.co",
+2026-Mar-11 11:22:20.801022 "NIXPACKS_METADATA": "node",
+2026-Mar-11 11:22:20.801022 "NIXPACKS_NODE_VERSION": "22",
+2026-Mar-11 11:22:20.801022 "NIXPACKS_SPA_OUTPUT_DIR": "dist",
+2026-Mar-11 11:22:20.801022 "NODE_ENV": "production",
+2026-Mar-11 11:22:20.801022 "NPM_CONFIG_PRODUCTION": "false"
+2026-Mar-11 11:22:20.801022 },
+2026-Mar-11 11:22:20.801022 "staticAssets": {
+2026-Mar-11 11:22:20.801022 "Caddyfile": "# global options\n{\n\tadmin off # theres no need for the admin api in railway's environment\n\tpersist_config off # storage isn't persistent anyway\n\tauto_https off # railway handles https for us, this would cause issues if left enabled\n\t# runtime logs\n\tlog {\n\t\tformat json # set runtime log format to json mode \n\t}\n\t# server options\n\tservers {\n\t\ttrusted_proxies static private_ranges 100.0.0.0/8 # trust railway's proxy\n\t}\n}\n\n# site block, listens on the $PORT environment variable, automatically assigned by railway\n:{$PORT:3000} {\n\t# access logs\n\tlog {\n\t\tformat json # set access log format to json mode\n\t}\n\n\t# health check for railway\n\trewrite /health /*\n\n\t# serve from the 'dist' folder (Vite builds into the 'dist' folder)\n    root * ../app/{$NIXPACKS_SPA_OUTPUT_DIR}\n\n\t# enable gzipping responses\n\tencode gzip\n\n\t# serve files from 'dist'\n\tfile_server \n\n\t# if path doesn't exist, redirect it to 'index.html' for client side routing\n\ttry_files {path} /index.html\n}"
+2026-Mar-11 11:22:20.801022 },
+2026-Mar-11 11:22:20.801022 "phases": {
+2026-Mar-11 11:22:20.801022 "build": {
+2026-Mar-11 11:22:20.801022 "dependsOn": [
+2026-Mar-11 11:22:20.801022 "install"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "cmds": [
+2026-Mar-11 11:22:20.801022 "npm run build"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "cacheDirectories": [
+2026-Mar-11 11:22:20.801022 "node_modules/.cache"
+2026-Mar-11 11:22:20.801022 ]
+2026-Mar-11 11:22:20.801022 },
+2026-Mar-11 11:22:20.801022 "caddy": {
+2026-Mar-11 11:22:20.801022 "dependsOn": [
+2026-Mar-11 11:22:20.801022 "setup"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "nixPkgs": [
+2026-Mar-11 11:22:20.801022 "caddy"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "nixOverlays": [],
+2026-Mar-11 11:22:20.801022 "nixpkgsArchive": "ba913eda2df8eb72147259189d55932012df6301",
+2026-Mar-11 11:22:20.801022 "cmds": [
+2026-Mar-11 11:22:20.801022 "caddy fmt --overwrite /assets/Caddyfile"
+2026-Mar-11 11:22:20.801022 ]
+2026-Mar-11 11:22:20.801022 },
+2026-Mar-11 11:22:20.801022 "install": {
+2026-Mar-11 11:22:20.801022 "dependsOn": [
+2026-Mar-11 11:22:20.801022 "setup"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "cmds": [
+2026-Mar-11 11:22:20.801022 "npm ci"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "cacheDirectories": [
+2026-Mar-11 11:22:20.801022 "/root/.npm"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "paths": [
+2026-Mar-11 11:22:20.801022 "/app/node_modules/.bin"
+2026-Mar-11 11:22:20.801022 ]
+2026-Mar-11 11:22:20.801022 },
+2026-Mar-11 11:22:20.801022 "setup": {
+2026-Mar-11 11:22:20.801022 "nixPkgs": [
+2026-Mar-11 11:22:20.801022 "nodejs_22",
+2026-Mar-11 11:22:20.801022 "npm-9_x"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "nixLibs": [
+2026-Mar-11 11:22:20.801022 "libuuid",
+2026-Mar-11 11:22:20.801022 "libGL"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "nixOverlays": [
+2026-Mar-11 11:22:20.801022 "https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz"
+2026-Mar-11 11:22:20.801022 ],
+2026-Mar-11 11:22:20.801022 "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7"
+2026-Mar-11 11:22:20.801022 }
+2026-Mar-11 11:22:20.801022 },
+2026-Mar-11 11:22:20.801022 "start": {
+2026-Mar-11 11:22:20.801022 "cmd": "npm run start"
+2026-Mar-11 11:22:20.801022 }
+2026-Mar-11 11:22:20.801022 }
+2026-Mar-11 11:22:21.232202 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'nixpacks detect /artifacts/bc8sso80skckcwss8sos40o0'
+2026-Mar-11 11:22:21.232202 node
+2026-Mar-11 11:22:21.249611 Found application type: node.
+2026-Mar-11 11:22:21.258400 If you need further customization, please check the documentation of Nixpacks: https://nixpacks.com/docs/providers/node
+2026-Mar-11 11:22:21.274312 Final Nixpacks plan: {
+2026-Mar-11 11:22:21.274312 "providers": [],
+2026-Mar-11 11:22:21.274312 "buildImage": "ghcr.io\/railwayapp\/nixpacks:ubuntu-1745885067",
+2026-Mar-11 11:22:21.274312 "staticAssets": {
+2026-Mar-11 11:22:21.274312 "Caddyfile": "# global options\n{\n\tadmin off # theres no need for the admin api in railway's environment\n\tpersist_config off # storage isn't persistent anyway\n\tauto_https off # railway handles https for us, this would cause issues if left enabled\n\t# runtime logs\n\tlog {\n\t\tformat json # set runtime log format to json mode \n\t}\n\t# server options\n\tservers {\n\t\ttrusted_proxies static private_ranges 100.0.0.0\/8 # trust railway's proxy\n\t}\n}\n\n# site block, listens on the $PORT environment variable, automatically assigned by railway\n:{$PORT:3000} {\n\t# access logs\n\tlog {\n\t\tformat json # set access log format to json mode\n\t}\n\n\t# health check for railway\n\trewrite \/health \/*\n\n\t# serve from the 'dist' folder (Vite builds into the 'dist' folder)\n    root * ..\/app\/{$NIXPACKS_SPA_OUTPUT_DIR}\n\n\t# enable gzipping responses\n\tencode gzip\n\n\t# serve files from 'dist'\n\tfile_server \n\n\t# if path doesn't exist, redirect it to 'index.html' for client side routing\n\ttry_files {path} \/index.html\n}"
+2026-Mar-11 11:22:21.274312 },
+2026-Mar-11 11:22:21.274312 "phases": {
+2026-Mar-11 11:22:21.274312 "build": {
+2026-Mar-11 11:22:21.274312 "dependsOn": [
+2026-Mar-11 11:22:21.274312 "install"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "cmds": [
+2026-Mar-11 11:22:21.274312 "npm run build"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "cacheDirectories": [
+2026-Mar-11 11:22:21.274312 "node_modules\/.cache"
+2026-Mar-11 11:22:21.274312 ]
+2026-Mar-11 11:22:21.274312 },
+2026-Mar-11 11:22:21.274312 "caddy": {
+2026-Mar-11 11:22:21.274312 "dependsOn": [
+2026-Mar-11 11:22:21.274312 "setup"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "nixPkgs": [
+2026-Mar-11 11:22:21.274312 "caddy"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "nixOverlays": [],
+2026-Mar-11 11:22:21.274312 "nixpkgsArchive": "ba913eda2df8eb72147259189d55932012df6301",
+2026-Mar-11 11:22:21.274312 "cmds": [
+2026-Mar-11 11:22:21.274312 "caddy fmt --overwrite \/assets\/Caddyfile"
+2026-Mar-11 11:22:21.274312 ]
+2026-Mar-11 11:22:21.274312 },
+2026-Mar-11 11:22:21.274312 "install": {
+2026-Mar-11 11:22:21.274312 "dependsOn": [
+2026-Mar-11 11:22:21.274312 "setup"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "cmds": [
+2026-Mar-11 11:22:21.274312 "npm ci"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "cacheDirectories": [
+2026-Mar-11 11:22:21.274312 "\/root\/.npm"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "paths": [
+2026-Mar-11 11:22:21.274312 "\/app\/node_modules\/.bin"
+2026-Mar-11 11:22:21.274312 ]
+2026-Mar-11 11:22:21.274312 },
+2026-Mar-11 11:22:21.274312 "setup": {
+2026-Mar-11 11:22:21.274312 "nixPkgs": [
+2026-Mar-11 11:22:21.274312 "nodejs_22",
+2026-Mar-11 11:22:21.274312 "npm-9_x"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "nixLibs": [
+2026-Mar-11 11:22:21.274312 "libuuid",
+2026-Mar-11 11:22:21.274312 "libGL"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "nixOverlays": [
+2026-Mar-11 11:22:21.274312 "https:\/\/github.com\/railwayapp\/nix-npm-overlay\/archive\/main.tar.gz"
+2026-Mar-11 11:22:21.274312 ],
+2026-Mar-11 11:22:21.274312 "nixpkgsArchive": "ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7",
+2026-Mar-11 11:22:21.274312 "aptPkgs": [
+2026-Mar-11 11:22:21.274312 "curl",
+2026-Mar-11 11:22:21.274312 "wget"
+2026-Mar-11 11:22:21.274312 ]
+2026-Mar-11 11:22:21.274312 }
+2026-Mar-11 11:22:21.274312 },
+2026-Mar-11 11:22:21.274312 "start": {
+2026-Mar-11 11:22:21.274312 "cmd": "npm run start"
+2026-Mar-11 11:22:21.274312 }
+2026-Mar-11 11:22:21.274312 }
+2026-Mar-11 11:22:22.628079 Creating build-time .env file in /artifacts (outside Docker context).
+2026-Mar-11 11:22:23.074071 ----------------------------------------
+2026-Mar-11 11:22:23.081201 Building docker image started.
+2026-Mar-11 11:22:23.088060 To check the current progress, click on Show Debug Logs.
+2026-Mar-11 11:22:24.392582 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'nixpacks build -c /artifacts/thegameplan.json --cache-key 's0g0kcg8o4w0scgsks440swk' --no-error-without-start -n s0g0kcg8o4w0scgsks440swk:87838005a4d5093d37dbb3a327e57aa743a2f400 /artifacts/bc8sso80skckcwss8sos40o0 -o /artifacts/bc8sso80skckcwss8sos40o0'
+2026-Mar-11 11:22:24.392582 
+2026-Mar-11 11:22:24.392582 ╔═════════════════════ Nixpacks v1.41.0 ═════════════════════╗
+2026-Mar-11 11:22:24.392582 ║ setup      │ nodejs_22, npm-9_x, curl, wget                ║
+2026-Mar-11 11:22:24.392582 ║────────────────────────────────────────────────────────────║
+2026-Mar-11 11:22:24.392582 ║ caddy      │ pkgs: caddy                                   ║
+2026-Mar-11 11:22:24.392582 ║            │ cmds: caddy fmt --overwrite /assets/Caddyfile ║
+2026-Mar-11 11:22:24.392582 ║────────────────────────────────────────────────────────────║
+2026-Mar-11 11:22:24.392582 ║ install    │ npm ci                                        ║
+2026-Mar-11 11:22:24.392582 ║────────────────────────────────────────────────────────────║
+2026-Mar-11 11:22:24.392582 ║ build      │ npm run build                                 ║
+2026-Mar-11 11:22:24.392582 ║────────────────────────────────────────────────────────────║
+2026-Mar-11 11:22:24.392582 ║ start      │ npm run start                                 ║
+2026-Mar-11 11:22:24.392582 ╚════════════════════════════════════════════════════════════╝
+2026-Mar-11 11:22:24.396184 Saved output to:
+2026-Mar-11 11:22:24.396184 /artifacts/bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:22:24.835762 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'cat /artifacts/bc8sso80skckcwss8sos40o0/.nixpacks/Dockerfile'
+2026-Mar-11 11:22:24.835762 FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 ENTRYPOINT ["/bin/bash", "-l", "-c"]
+2026-Mar-11 11:22:24.835762 WORKDIR /app/
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 COPY .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix
+2026-Mar-11 11:22:24.835762 RUN nix-env -if .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix && nix-collect-garbage -d
+2026-Mar-11 11:22:24.835762 COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-Mar-11 11:22:24.835762 RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-Mar-11 11:22:24.835762 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Mar-11 11:22:24.835762 COPY .nixpacks/assets /assets/
+2026-Mar-11 11:22:24.835762 ARG APP_URL CI COOLIFY_BRANCH COOLIFY_FQDN COOLIFY_RESOURCE_UUID COOLIFY_URL NIXPACKS_METADATA NIXPACKS_NODE_VERSION NIXPACKS_SPA_OUTPUT_DIR NODE_ENV NPM_CONFIG_PRODUCTION
+2026-Mar-11 11:22:24.835762 ENV APP_URL=$APP_URL CI=$CI COOLIFY_BRANCH=$COOLIFY_BRANCH COOLIFY_FQDN=$COOLIFY_FQDN COOLIFY_RESOURCE_UUID=$COOLIFY_RESOURCE_UUID COOLIFY_URL=$COOLIFY_URL NIXPACKS_METADATA=$NIXPACKS_METADATA NIXPACKS_NODE_VERSION=$NIXPACKS_NODE_VERSION NIXPACKS_SPA_OUTPUT_DIR=$NIXPACKS_SPA_OUTPUT_DIR NODE_ENV=$NODE_ENV NPM_CONFIG_PRODUCTION=$NPM_CONFIG_PRODUCTION
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 # setup phase
+2026-Mar-11 11:22:24.835762 # noop
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 # caddy phase
+2026-Mar-11 11:22:24.835762 COPY . /app/.
+2026-Mar-11 11:22:24.835762 RUN  caddy fmt --overwrite /assets/Caddyfile
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 # install phase
+2026-Mar-11 11:22:24.835762 ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
+2026-Mar-11 11:22:24.835762 COPY . /app/.
+2026-Mar-11 11:22:24.835762 RUN --mount=type=cache,id=s0g0kcg8o4w0scgsks440swk-/root/npm,target=/root/.npm npm ci
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 # build phase
+2026-Mar-11 11:22:24.835762 COPY . /app/.
+2026-Mar-11 11:22:24.835762 RUN --mount=type=cache,id=s0g0kcg8o4w0scgsks440swk-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 # start
+2026-Mar-11 11:22:24.835762 COPY . /app
+2026-Mar-11 11:22:24.835762 
+2026-Mar-11 11:22:24.835762 CMD ["npm run start"]
+2026-Mar-11 11:22:25.831436 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'cat /artifacts/build.sh'
+2026-Mar-11 11:22:25.831436 cd /artifacts/bc8sso80skckcwss8sos40o0 && set -a && source /artifacts/build-time.env && set +a && docker build --add-host coolify:172.18.0.2 --add-host coolify-db:172.18.0.8 --add-host coolify-realtime:172.18.0.9 --add-host coolify-redis:172.18.0.3 --add-host e0cgw4gwo80w4sossk004ogk:172.18.0.6 --add-host mailpit-rkckcc4oksc4cosso440gkk8:172.18.0.4 --network host -f /artifacts/bc8sso80skckcwss8sos40o0/.nixpacks/Dockerfile --progress plain -t s0g0kcg8o4w0scgsks440swk:87838005a4d5093d37dbb3a327e57aa743a2f400 --build-arg CI --build-arg COOLIFY_BRANCH --build-arg COOLIFY_FQDN --build-arg COOLIFY_RESOURCE_UUID --build-arg COOLIFY_URL --build-arg NIXPACKS_METADATA --build-arg NIXPACKS_NODE_VERSION --build-arg NIXPACKS_SPA_OUTPUT_DIR --build-arg NODE_ENV --build-arg NPM_CONFIG_PRODUCTION --build-arg APP_URL --build-arg COOLIFY_BUILD_SECRETS_HASH=ec350d66eaab7b852ab7a1fb605db347f455e9395ffcc6815c65d85d73d98152 --build-arg 'COOLIFY_URL' --build-arg 'COOLIFY_FQDN' --build-arg 'COOLIFY_BRANCH' --build-arg 'COOLIFY_RESOURCE_UUID' /artifacts/bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:22:26.851491 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'bash /artifacts/build.sh'
+2026-Mar-11 11:22:26.851491 #0 building with "default" instance using docker driver
+2026-Mar-11 11:22:26.851491 
+2026-Mar-11 11:22:26.851491 #1 [internal] load build definition from Dockerfile
+2026-Mar-11 11:22:26.855838 #1 transferring dockerfile: 1.78kB done
+2026-Mar-11 11:22:26.855838 #1 DONE 0.0s
+2026-Mar-11 11:22:26.855838 
+2026-Mar-11 11:22:26.855838 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-Mar-11 11:22:26.855838 #2 DONE 0.1s
+2026-Mar-11 11:22:27.027849 
+2026-Mar-11 11:22:27.033598 #3 [internal] load .dockerignore
+2026-Mar-11 11:22:27.033598 #3 transferring context: 109B done
+2026-Mar-11 11:22:27.033598 #3 DONE 0.0s
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #4 [stage-0  1/16] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-Mar-11 11:22:27.033598 #4 DONE 0.0s
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #5 [internal] load build context
+2026-Mar-11 11:22:27.033598 #5 transferring context: 402.82kB 0.0s done
+2026-Mar-11 11:22:27.033598 #5 DONE 0.0s
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #6 [stage-0  3/16] COPY .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix
+2026-Mar-11 11:22:27.033598 #6 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #7 [stage-0  4/16] RUN nix-env -if .nixpacks/nixpkgs-ba913eda2df8eb72147259189d55932012df6301.nix && nix-collect-garbage -d
+2026-Mar-11 11:22:27.033598 #7 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #8 [stage-0  5/16] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-Mar-11 11:22:27.033598 #8 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #9 [stage-0  6/16] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-Mar-11 11:22:27.033598 #9 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #10 [stage-0  7/16] RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+2026-Mar-11 11:22:27.033598 #10 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #11 [stage-0  2/16] WORKDIR /app/
+2026-Mar-11 11:22:27.033598 #11 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #12 [stage-0  8/16] COPY .nixpacks/assets /assets/
+2026-Mar-11 11:22:27.033598 #12 CACHED
+2026-Mar-11 11:22:27.033598 
+2026-Mar-11 11:22:27.033598 #13 [stage-0  9/16] COPY . /app/.
+2026-Mar-11 11:22:27.033598 #13 DONE 0.1s
+2026-Mar-11 11:22:27.181026 #14 [stage-0 10/16] RUN  caddy fmt --overwrite /assets/Caddyfile
+2026-Mar-11 11:22:27.385548 #14 DONE 0.4s
+2026-Mar-11 11:22:27.627852 #15 [stage-0 11/16] COPY . /app/.
+2026-Mar-11 11:22:27.627852 #15 DONE 0.1s
+2026-Mar-11 11:22:27.627852 
+2026-Mar-11 11:22:27.627852 #16 [stage-0 12/16] RUN --mount=type=cache,id=s0g0kcg8o4w0scgsks440swk-/root/npm,target=/root/.npm npm ci
+2026-Mar-11 11:22:27.704761 #16 0.227 npm warn config production Use `--omit=dev` instead.
+2026-Mar-11 11:22:28.995105 #16 1.517 npm warn EBADENGINE Unsupported engine {
+2026-Mar-11 11:22:28.995105 #16 1.517 npm warn EBADENGINE   package: '@vitejs/plugin-react@5.1.4',
+2026-Mar-11 11:22:28.995105 #16 1.517 npm warn EBADENGINE   required: { node: '^20.19.0 || >=22.12.0' },
+2026-Mar-11 11:22:28.995105 #16 1.517 npm warn EBADENGINE   current: { node: 'v22.11.0', npm: '10.9.0' }
+2026-Mar-11 11:22:28.995105 #16 1.517 npm warn EBADENGINE }
+2026-Mar-11 11:22:34.084631 #16 6.607 npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
+2026-Mar-11 11:22:34.808008 #16 7.330 npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+2026-Mar-11 11:22:35.526916 #16 8.048 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting <REDACTED>
+2026-Mar-11 11:22:41.731394 #16 14.25
+2026-Mar-11 11:22:41.731394 #16 14.25 added 380 packages, and audited 381 packages in 14s
+2026-Mar-11 11:22:41.882333 #16 14.25
+2026-Mar-11 11:22:41.882333 #16 14.25 64 packages are looking for funding
+2026-Mar-11 11:22:41.882333 #16 14.25   run `npm fund` for details
+2026-Mar-11 11:22:41.882333 #16 14.25
+2026-Mar-11 11:22:41.882333 #16 14.25 found 0 vulnerabilities
+2026-Mar-11 11:22:42.140909 #16 DONE 14.7s
+2026-Mar-11 11:22:42.259123 #17 [stage-0 13/16] COPY . /app/.
+2026-Mar-11 11:22:42.259123 #17 DONE 0.1s
+2026-Mar-11 11:22:42.417467 #18 [stage-0 14/16] RUN --mount=type=cache,id=s0g0kcg8o4w0scgsks440swk-node_modules/cache,target=/app/node_modules/.cache npm run build
+2026-Mar-11 11:22:42.588715 #18 0.326 npm warn config production Use `--omit=dev` instead.
+2026-Mar-11 11:22:42.794919 #18 0.372
+2026-Mar-11 11:22:42.794919 #18 0.372 > react-example@0.0.0 build
+2026-Mar-11 11:22:42.794919 #18 0.372 > vite build
+2026-Mar-11 11:22:42.794919 #18 0.372
+2026-Mar-11 11:22:43.516563 #18 1.253 vite v6.4.1 building for production...
+2026-Mar-11 11:22:43.669369 #18 1.401 transforming...
+2026-Mar-11 11:22:57.966528 #18 15.70 ✓ 2999 modules transformed.
+2026-Mar-11 11:22:59.049473 #18 16.79 rendering chunks...
+2026-Mar-11 11:22:59.988352 #18 17.72 computing gzip size...
+2026-Mar-11 11:23:00.699022 #18 18.43 dist/index.html                              0.41 kB │ gzip:   0.28 kB
+2026-Mar-11 11:23:00.866058 #18 18.44 dist/assets/index-DBbm4H1_.css              40.61 kB │ gzip:   7.64 kB
+2026-Mar-11 11:23:00.866058 #18 18.44 dist/assets/purify.es-CFh60W_8.js           22.77 kB │ gzip:   8.75 kB
+2026-Mar-11 11:23:00.866058 #18 18.44 dist/assets/index.es-BYxM7o1y.js           159.38 kB │ gzip:  53.26 kB
+2026-Mar-11 11:23:00.866058 #18 18.45 dist/assets/html2canvas.esm-QH1iLAAe.js    202.38 kB │ gzip:  47.71 kB
+2026-Mar-11 11:23:00.866058 #18 18.45 dist/assets/index-B0ndemRg.js            1,668.41 kB │ gzip: 474.69 kB
+2026-Mar-11 11:23:00.866058 #18 18.45
+2026-Mar-11 11:23:00.866058 #18 18.45 (!) Some chunks are larger than 500 kB after minification. Consider:
+2026-Mar-11 11:23:00.866058 #18 18.45 - Using dynamic import() to code-split the application
+2026-Mar-11 11:23:00.866058 #18 18.45 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2026-Mar-11 11:23:00.866058 #18 18.45 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+2026-Mar-11 11:23:00.866058 #18 18.45 ✓ built in 17.13s
+2026-Mar-11 11:23:01.422039 #18 DONE 19.2s
+2026-Mar-11 11:23:01.574854 #19 [stage-0 15/16] RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
+2026-Mar-11 11:23:01.716081 #19 DONE 0.3s
+2026-Mar-11 11:23:01.870670 #20 [stage-0 16/16] COPY . /app
+2026-Mar-11 11:23:01.884092 #20 DONE 0.2s
+2026-Mar-11 11:23:02.056184 #21 exporting to image
+2026-Mar-11 11:23:02.056184 #21 exporting layers
+2026-Mar-11 11:23:24.573672 #21 exporting layers 22.7s done
+2026-Mar-11 11:23:24.760878 #21 writing image sha256:33b8a79b7464feaeda9bfcd6fceb6f99edd537f2ebc708bfa1ebef52851841c6 done
+2026-Mar-11 11:23:24.760878 #21 naming to docker.io/library/s0g0kcg8o4w0scgsks440swk:87838005a4d5093d37dbb3a327e57aa743a2f400 done
+2026-Mar-11 11:23:24.760878 #21 DONE 22.7s
+2026-Mar-11 11:23:25.637193 Building docker image completed.
+2026-Mar-11 11:23:25.654834 Creating .env file with runtime variables for container.
+2026-Mar-11 11:23:26.505675 ----------------------------------------
+2026-Mar-11 11:23:26.513165 Rolling update started.
+2026-Mar-11 11:23:28.159315 [CMD]: docker exec bc8sso80skckcwss8sos40o0 bash -c 'COOLIFY_URL=https://ethos.2elite.co COOLIFY_FQDN=ethos.2elite.co COOLIFY_BRANCH=main COOLIFY_RESOURCE_UUID=s0g0kcg8o4w0scgsks440swk  docker compose --project-name s0g0kcg8o4w0scgsks440swk --project-directory /artifacts/bc8sso80skckcwss8sos40o0 -f /artifacts/bc8sso80skckcwss8sos40o0/docker-compose.yaml up --build -d'
+2026-Mar-11 11:23:28.159315 time="2026-03-11T11:23:28Z" level=warning msg="Found orphan containers ([s0g0kcg8o4w0scgsks440swk-111113298847]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+2026-Mar-11 11:23:28.159315 Container s0g0kcg8o4w0scgsks440swk-112211976384  Creating
+2026-Mar-11 11:23:28.288053 s0g0kcg8o4w0scgsks440swk-112211976384 Your kernel does not support memory swappiness capabilities or the cgroup is not mounted. Memory swappiness discarded.
+2026-Mar-11 11:23:28.308958 Container s0g0kcg8o4w0scgsks440swk-112211976384  Created
+2026-Mar-11 11:23:28.308958 Container s0g0kcg8o4w0scgsks440swk-112211976384  Starting
+2026-Mar-11 11:23:28.587151 Container s0g0kcg8o4w0scgsks440swk-112211976384  Started
+2026-Mar-11 11:23:28.600516 New container started.
+2026-Mar-11 11:23:28.611568 Removing old containers.
+2026-Mar-11 11:23:29.774906 [CMD]: docker stop -t 30 s0g0kcg8o4w0scgsks440swk-111113298847
+2026-Mar-11 11:23:29.774906 s0g0kcg8o4w0scgsks440swk-111113298847
+2026-Mar-11 11:23:30.342629 [CMD]: docker rm -f s0g0kcg8o4w0scgsks440swk-111113298847
+2026-Mar-11 11:23:30.342629 s0g0kcg8o4w0scgsks440swk-111113298847
+2026-Mar-11 11:23:30.356544 Rolling update completed.
+2026-Mar-11 11:23:32.260562 Gracefully shutting down build container: bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:23:32.777964 [CMD]: docker stop -t 30 bc8sso80skckcwss8sos40o0
+2026-Mar-11 11:23:32.777964 bc8sso80skckcwss8sos40o0
