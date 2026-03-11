@@ -1,0 +1,5 @@
+{
+  "name": "Ethos Rounding & Behavioral Analytics",
+  "description": "A comprehensive healthcare rounding platform that analyzes manager behavior, rounding authenticity, and quality patterns for hospital leadership.",
+  "requestFramePermissions": ["geolocation"]
+}
